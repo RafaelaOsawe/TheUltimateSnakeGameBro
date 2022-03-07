@@ -17,7 +17,7 @@ screen.tracer(0) #This function will prevent screen updates. Therefore, needs to
 #screen size
 
 screen.setup(width=750, height=600)
-#screen.screensize(canvwidth=750, canvheight=500) - this doesn not work because you need to scroll to get to different areas of the screen which will not be easy when playing the game.
+#screen.screensize(canvwidth=750, canvheight=500) - this does not work because you need to scroll to get to different areas of the screen which will not be easy when playing the game.
 
 
   
