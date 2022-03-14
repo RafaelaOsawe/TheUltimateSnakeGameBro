@@ -1,45 +1,60 @@
-#The inital part of the game
-
 import turtle
 import time
-import random 
+import random
+from random import randint
+from turtle import Turtle, Screen
+
+delay = 0
 
 score = 0
 high_score = 0
-delay = 0
+
+#the snake
+snake = turtle.Turtle()
+snake.shape("square")
+snake.color("red")
+# snake.goto(0, 0) - might not need this as the snake goes straight to the center point
+snake.penup() #this will prevent the path the snake takes from being drawn
+#snake.speed(0)
+#snake.direction = "stop"
 
 #main screen
 screen = turtle.Screen()
-screen.title('The Ultimate Snake Game Bro')
+screen.title('The Ultimate Snake Game')
 screen.bgcolor('green') #screen colour - green
-screen.tracer(0) #This function will prevent screen updates. Therefore, needs to be set to 0. The only thing that needs to update is the score everytime the snake eats.
+#screen.tracer(0, 0) #This function will prevent screen updates. Therefore, needs to be set to 0. The only thing that needs to update is the score everytime the snake eats.
+screen.setup(width=400, height=400) #screen size
 
-#screen size
+#movement
+speed = 1
 
-screen.setup(width=750, height=600)
-#screen.screensize(canvwidth=750, canvheight=500) - this does not work because you need to scroll to get to different areas of the screen which will not be easy when playing the game.
+def movement():
+  snake.forward(speed)
+  screen.ontimer(movement, 10)
+
+screen.onkey(lambda: snake.setheading(90), "Up")
+screen.onkey(lambda: snake.setheading(180), "Left")
+screen.onkey(lambda: snake.setheading(0), "Right")
+screen.onkey(lambda: snake.setheading(270), "Down")
+
+screen.listen()
+
+movement()
+
+main.loop() #turtles continous movement - whilst there is no movement the snake will forward inifintely :)
+
 
 
   
-  #press space bar to initiate game (could be displayed as a button)
+
+#press space bar to initiate game (could be displayed as a button)
 
 
-#keyboard movements
-
-  # w = 'up'
-  # a = 'left'
-  # s = 'down'
-  # d = 'right'
-
-#the food/ colliding with the food
-  
-  #increases score
-  #increases the size of the snake
 
 #score
 
   #increases with eating the food
-  #will chnage if surpasses the score of the person in first place on the leader board
+  #will chnage if surpasses the score of the person in first place on the leader 
 
 #main game
 
@@ -57,3 +72,13 @@ screen.setup(width=750, height=600)
 #start the game
 #Display of the highscore
 #leaderboard (optional)
+
+#the food
+#food = turtle.Turtle()
+#food.color("black")
+#food.shape("circle")
+#food.penup()
+#food.goto(randint(-100,0),randint(0,100)) 
+
+
+#turtle.done()
