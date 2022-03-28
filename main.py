@@ -1,84 +1,109 @@
+#you need to press the screen before you start playing the game
+#This is a link to the doc for me to keep track of everything, if anyone wants to see it https://docs.google.com/document/d/12JGvGMXNMb6fx5LM-fM_Zi4aMdBu-Y8woQIYKG1u0SE/edit?usp=sharing
 import turtle
 import time
 import random
-from random import randint
-from turtle import Turtle, Screen
+import sys
+from turtle import *
 
-delay = 0
+delay = 0.1
 
-score = 0
+#score variables
 high_score = 0
+score = 0
 
-#the snake
-snake = turtle.Turtle()
-snake.shape("square")
-snake.color("red")
-# snake.goto(0, 0) - might not need this as the snake goes straight to the center point
-snake.penup() #this will prevent the path the snake takes from being drawn
-#snake.speed(0)
-#snake.direction = "stop"
+#width and height
+width = 650
+height = 400
 
-#main screen
+minX, maxX = -width/2, width/2
+minY, maxY = -width/2, width/2
+
+#window screen
 screen = turtle.Screen()
 screen.title('The Ultimate Snake Game')
-screen.bgcolor('green') #screen colour - green
-#screen.tracer(0, 0) #This function will prevent screen updates. Therefore, needs to be set to 0. The only thing that needs to update is the score everytime the snake eats.
-screen.setup(width=400, height=400) #screen size
+screen.bgcolor('green')
+screen.setup(width, height)
+screen.tracer(0) 
 
-#movement
-speed = 1
-
-def movement():
-  snake.forward(speed)
-  screen.ontimer(movement, 10)
-
-screen.onkey(lambda: snake.setheading(90), "Up")
-screen.onkey(lambda: snake.setheading(180), "Left")
-screen.onkey(lambda: snake.setheading(0), "Right")
-screen.onkey(lambda: snake.setheading(270), "Down")
-
-screen.listen()
-
-movement()
-
-main.loop() #turtles continous movement - whilst there is no movement the snake will forward inifintely :)
-
-
-
-  
-
-#press space bar to initiate game (could be displayed as a button)
-
-
-
-#score
-
-  #increases with eating the food
-  #will chnage if surpasses the score of the person in first place on the leader 
-
-#main game
-
-#leaderboard
-
-  #displayed at the top
-  #displayed at the end
-
-
-
-#border that if the snake touches the game will automatically end
-
-#snake (colour, increases everytime it eats)
-#movements
-#start the game
-#Display of the highscore
-#leaderboard (optional)
+#the snake head
+snake = turtle.Turtle()
+snake.shape('square')
+snake.color('red')
+snake.penup()
+snake.goto(0, 0)
+snake.direction = 'Stop'
 
 #the food
-#food = turtle.Turtle()
-#food.color("black")
-#food.shape("circle")
-#food.penup()
-#food.goto(randint(-100,0),randint(0,100)) 
+food = turtle.Turtle()
+colours = random.choice(['pink', 'blue', 'black', 'yellow', 'purple', 'white'])
+food.color(colours)
+food.shape("circle")
+food.speed(0)
+food.penup()
+food.shapesize(0.50, 0.50)
+food.goto(0, 100)
+
+#scores at the top of the screen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color('white')
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 170)
+pen.write('Score: 0    Highscore: 0', align='center', font=('Courier', 15, 'normal'))
+
+#keybinds functions for movement
+def go_up():
+  snake.setheading(90)
+  snake.forward(20)
+
+def go_down():
+  snake.setheading(270)
+  snake.forward(20)
+
+def go_left():
+  snake.setheading(180)
+  snake.forward(20)
+
+def go_right():
+  snake.setheading(0)
+  snake.forward(20)
+  
+turtle.listen()
+
+turtle.onkey(go_up, 'w') #press your 'w' key to move
+turtle.onkey(go_down, 's') #press your 's' key to move
+turtle.onkey(go_left, 'a') #press your 'a' key to move
+turtle.onkey(go_right, 'd') #press your 'd' key to move
+
+#collision detection
+if snake.distance(food) < 20:
+  x = random.randint (-250, 250)
+  y = random.randint (-250, 250)
+  food.goto(x, y)
+
+#main gameplay
+while True:
+  screen.update()
+
+#border restrictions
+def border_restrictions():
+  if snake.ycor() >= maxY or snake.ycor() <= minY or snake.xcor() >= maxX or snake.xcor <= minX:
+    snake.bye()
+    sys.exit(0)
+
+border_restrictions()
+
+turtle.mainloop() #needs to stay at the end
+
+#border collision
+
+#body collision
+
+#score updates
 
 
-#turtle.done()
+
+
+
